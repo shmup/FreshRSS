@@ -486,16 +486,22 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
 				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
-			if ($simplePiePush === null && $feed_id === null && (time() <= $feed->lastUpdate() + $ttl)) {
-				//Too early to refresh from source, but check whether the feed was updated by another user
-				$ε = 10;	// negligible offset errors in seconds
-				if ($mtime <= 0 ||
-					$feed->lastUpdate() + $ε >= $mtime ||
-					time() + $ε >= $mtime + FreshRSS_Context::systemConf()->limits['cache_duration']) {	// is cache still valid?
-					continue;	//Nothing newer from other users
+			if ($simplePiePush === null && (time() <= $feed->lastUpdate() + $ttl)) {
+				// For feeds in error state, always retry regardless of TTL (unless it's a specific feed request)
+				if ($feed->inError() && $feed_id === null) {
+					Minz_Log::debug('Retrying feed in error state: ' . $feed->url(false));
+					// Skip TTL check for error feeds - let them be processed
+				} else {
+					//Too early to refresh from source, but check whether the feed was updated by another user
+					$ε = 10;	// negligible offset errors in seconds
+					if ($mtime <= 0 ||
+						$feed->lastUpdate() + $ε >= $mtime ||
+						time() + $ε >= $mtime + FreshRSS_Context::systemConf()->limits['cache_duration']) {	// is cache still valid?
+						continue;	//Nothing newer from other users
+					}
+					Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
+						', and at ' . date('c', $mtime) . ' by another user; take advantage of newer cache.');
 				}
-				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
-					', and at ' . date('c', $mtime) . ' by another user; take advantage of newer cache.');
 			}
 
 			if (!$feed->lock()) {
