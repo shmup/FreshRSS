@@ -261,7 +261,12 @@ return array(
 			'misc' => 'Miscellaneous',
 			'view' => 'View',
 		),
-		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
+		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with "Show all articles" configuration)',
+		'sidebar_sort_feeds_by' => array(
+			'_' => 'Sort feeds by',
+			'alpha' => 'Alphabetically',
+			'unread' => 'Unread count',
+		),
 		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',
 		'jump_next' => 'jump to next unread sibling',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
