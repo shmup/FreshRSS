@@ -2219,39 +2219,56 @@ function faviconNbUnread(n) {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
 	}
-	// http://remysharp.com/2010/08/24/dynamic-favicons/
 	const canvas = document.createElement('canvas');
-	const link = document.getElementById('favicon').cloneNode(true);
 	const ratio = window.devicePixelRatio;
-	if (canvas.getContext && link) {
+	if (canvas.getContext) {
 		canvas.height = canvas.width = 16 * ratio;
-		const img = document.createElement('img');
-		img.onload = function () {
-			const ctx = canvas.getContext('2d');
-			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-			if (n > 0) {
-				let text = '';
-				if (n < 1000) {
-					text = n;
-				} else if (n < 100000) {
-					text = Math.floor(n / 1000) + 'k';
-				} else {
-					text = 'E' + Math.floor(Math.log10(n));
-				}
-				ctx.font = 'bold ' + 9 * ratio + 'px "Arial", sans-serif';
-				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7 * ratio, ctx.measureText(text).width, 9 * ratio);
-				ctx.fillStyle = '#F00';
-				ctx.fillText(text, 0, canvas.height - 1);
+		const ctx = canvas.getContext('2d');
+
+		// background
+		ctx.fillStyle = '#222';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		if (n > 0) {
+			let text = '';
+			let fontSize = 14 * ratio;
+			if (n < 10) {
+				text = String(n);
+				fontSize = 14 * ratio;
+			} else if (n < 100) {
+				text = String(n);
+				fontSize = 12 * ratio;
+			} else if (n < 1000) {
+				text = String(n);
+				fontSize = 9 * ratio;
+			} else if (n < 10000) {
+				text = Math.floor(n / 1000) + 'k';
+				fontSize = 12 * ratio;
+			} else if (n < 100000) {
+				text = Math.floor(n / 1000) + 'k';
+				fontSize = 9 * ratio;
+			} else {
+				text = 'E' + Math.floor(Math.log10(n));
+				fontSize = 10 * ratio;
 			}
-			link.href = canvas.toDataURL('image/png');
-			// Check if data URI has generated a real favicon and if not, fallback to standard icon
-			if (link.href.length > 180) {
-				document.querySelector('link[rel~=icon]').remove();
-				document.head.appendChild(link);
-			}
-		};
-		img.src = '../favicon.ico';
+			ctx.font = 'bold ' + fontSize + 'px "Arial", sans-serif';
+			ctx.fillStyle = '#FFF';
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+		}
+
+		const dataUrl = canvas.toDataURL('image/png');
+		if (dataUrl.length > 180) {
+			// remove ALL icon links to prevent browser fallback
+			document.querySelectorAll('link[rel~=icon], link[rel*="icon"]').forEach(el => el.remove());
+			const link = document.createElement('link');
+			link.id = 'favicon';
+			link.rel = 'icon';
+			link.type = 'image/png';
+			link.href = dataUrl;
+			document.head.appendChild(link);
+		}
 	}
 }
 
