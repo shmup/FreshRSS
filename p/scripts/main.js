@@ -2346,9 +2346,38 @@ function init_main_beforeDOM() {
 	}
 }
 
+// <fullscreen>
+function init_fullscreen() {
+	const btn = document.getElementById('toggle-fullscreen');
+	if (!btn) {
+		return;
+	}
+
+	function updateFullscreenState() {
+		const isFullscreen = !!document.fullscreenElement;
+		btn.setAttribute('aria-pressed', isFullscreen ? 'true' : 'false');
+		btn.classList.toggle('active', isFullscreen);
+	}
+
+	btn.onclick = function () {
+		if (!document.fullscreenElement) {
+			document.documentElement.requestFullscreen().catch(function (err) {
+				console.log('Fullscreen error:', err.message);
+			});
+		} else {
+			document.exitFullscreen();
+		}
+	};
+
+	document.addEventListener('fullscreenchange', updateFullscreenState);
+	updateFullscreenState();
+}
+// </fullscreen>
+
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
+	init_fullscreen();
 	init_csp_alert();
 	init_confirm_action();
 	init_nav_menu();

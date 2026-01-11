@@ -28,6 +28,7 @@ return array(
 		'enable' => 'Enable',
 		'export' => 'Export',
 		'filter' => 'Filter',
+		'fullscreen' => 'Fullscreen',
 		'import' => 'Import',
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',

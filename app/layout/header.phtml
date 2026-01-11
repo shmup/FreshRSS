@@ -53,6 +53,7 @@
 		<form id="post-csrf" method="post">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		</form>
+		<button id="toggle-fullscreen" class="btn" type="button" title="<?= _t('gen.action.fullscreen') ?>" aria-pressed="false"><?= _i('fullscreen') ?></button>
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
