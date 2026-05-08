@@ -22,6 +22,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix article *last seen date* in case of feed errors [#8646](https://github.com/FreshRSS/FreshRSS/pull/8646)
 	* Fix search expansion with backslash [#8497](https://github.com/FreshRSS/FreshRSS/pull/8497)
 	* Fix user query parsing [#8543](https://github.com/FreshRSS/FreshRSS/pull/8543)
+	* Fix search in shared user queries [#8789](https://github.com/FreshRSS/FreshRSS/pull/8789)
 	* Fix redirect to wrong view after mark as read in *reader* and *global* views [#8552](https://github.com/FreshRSS/FreshRSS/pull/8552)
 	* Fix SQLite paging when sorting by article length [#8594](https://github.com/FreshRSS/FreshRSS/pull/8594)
 	* Fix change sorting during paging [#8688](https://github.com/FreshRSS/FreshRSS/pull/8688)
@@ -37,9 +38,10 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New setting for `<iframe>` referrer allow list [#8672](https://github.com/FreshRSS/FreshRSS/pull/8672)
 	* Fix email validation and allow error page for unverified email users [#8582](https://github.com/FreshRSS/FreshRSS/pull/8582)
 	* Add `allowfullscreen` to `<iframe>` [#8467](https://github.com/FreshRSS/FreshRSS/pull/8467)
-	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447)
+	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447), [#8778](https://github.com/FreshRSS/FreshRSS/pull/8778)
 		* Sanitize lifetime of session cookies from `session.cookie-lifetime` in `php.ini`
 	* Update to `<meta name="referrer" content="no-referrer" />` from deprecated `never` [#8725](https://github.com/FreshRSS/FreshRSS/pull/8725)
+	* Preventive measure against search ingestion [#8777](https://github.com/FreshRSS/FreshRSS/pull/8777)
 * UI
 	* New option to hide sidebar by default [#8528](https://github.com/FreshRSS/FreshRSS/pull/8528)
 	* Improve mobile view with multiple lines when thumbnails and summaries are shown [#8631](https://github.com/FreshRSS/FreshRSS/pull/8631)
