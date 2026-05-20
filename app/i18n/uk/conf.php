@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
 		'show_title_unread' => 'Кількість непрочитаних статей у заголовку',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Типово ховати бічну панель',
 		'theme' => array(
 			'_' => 'Тема',
